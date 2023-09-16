@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import loginStyles from './styles';
 
 const Login = () => {
 
@@ -11,64 +12,36 @@ const Login = () => {
 
   const handleLogin = () => {
     if (email === '' && password === '') {
-      navigation.navigate('main');
+      navigation.navigate('characters');
     } else {
       alert('E-mail ou senha inválidos!')
     }
   }
 
   return (
-    <View style={styles.container}>
+    <View style={loginStyles.container}>
       <TextInput
-        style={styles.input}
+        style={loginStyles.input}
         placeholder='E-mail'
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
-        style={styles.input}
+        style={loginStyles.input}
         placeholder='Senha'
         secureTextEntry={true}
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={loginStyles.button} onPress={handleLogin}>
+        <Text style={loginStyles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={loginStyles.addButton} onPress={() => navigation.navigate('user', {})}>
+        <Text>Cadastrar Usuário</Text>
       </TouchableOpacity>
     </View>
   );
-
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#eee',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 10,
-    width: '80%',
-    backgroundColor: '#fff',
-  },
-  button: {
-    backgroundColor: '#e89ac7',
-    borderRadius: 5,
-    padding: 10,
-    width: '80%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 75
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 25,
-  }
-});
 
 export default Login;
