@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import loginStyles from './styles';
+import {container, input, Button, addButton} from './styles';
 
 const Login = () => {
 
@@ -19,24 +19,24 @@ const Login = () => {
   }
 
   return (
-    <View style={loginStyles.container}>
+    <View style={container}>
       <TextInput
-        style={loginStyles.input}
+        style={input}
         placeholder='E-mail'
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
-        style={loginStyles.input}
+        style={input}
         placeholder='Senha'
         secureTextEntry={true}
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={loginStyles.button} onPress={handleLogin}>
-        <Text style={loginStyles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={Button.button} onPress={handleLogin}>
+        <Text style={Button.buttonText}>Entrar</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={loginStyles.addButton} onPress={() => navigation.navigate('user', {})}>
+      <TouchableOpacity style={addButton} onPress={() => navigation.navigate('user', {})}>
         <Text>Cadastrar Usuário</Text>
       </TouchableOpacity>
     </View>

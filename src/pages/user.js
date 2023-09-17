@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
-import loginStyles from './styles';
+import { View, TextInput, TouchableOpacity, Text, Alert, TouchableWithoutFeedback } from 'react-native';
+import { container, input, dropdown, Button } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -11,10 +11,10 @@ const CreateUser = () => {
     const [cpf, setCPF] = useState('');
     const [email, setEmail] = useState('');
     const cursos = [
-        {'label':'ADS', 'value':'ADS'},
-        {'label':'DSM', 'value':'DSM'},
-        {'label':'GPI', 'value':'GPI'},
-        {'label':'GRH', 'value':'GRH'},
+        { 'label': 'ADS', 'value': 'ADS' },
+        { 'label': 'DSM', 'value': 'DSM' },
+        { 'label': 'GPI', 'value': 'GPI' },
+        { 'label': 'GRH', 'value': 'GRH' },
     ];
     const [curso, setCurso] = useState(null);
     const [open, setOpen] = useState(false);
@@ -54,66 +54,69 @@ const CreateUser = () => {
     };
 
     return (
-        <View style={loginStyles.container}>
-            <TextInput
-                style={loginStyles.input}
-                placeholder='Nome'
-                onChangeText={(text) => setName(text)}
-            />
-            <TextInput
-                style={loginStyles.input}
-                placeholder="Telefone"
-                value={phone}
-                keyboardType="phone-pad"
-                onChangeText={(text) => setPhone(text)}
-                onBlur={handlePhone}
-                maxLength={11}
-            />
-            <TextInput
-                style={loginStyles.input}
-                placeholder="CPF"
-                value={cpf}
-                keyboardType="numeric"
-                onChangeText={(text) => setCPF(text)}
-                onBlur={handleCPF}
-                maxLength={11}
-            />
-            <TextInput
-                style={loginStyles.input}
-                placeholder='E-mail'
-                value={email}
-                onChangeText={(text) => setEmail(text)}
-                onBlur={handleEmail}
-            />
-            <DropDownPicker
-                style={loginStyles.dropdown}
-                placeholder={'Curso'}
-                multiple={false}
-                items={cursos}
-                value={curso}
-                open={open}
-                setOpen={setOpen}
-                onOpen={() => setOpen(true)}
-                setValue={(value)=> setCurso(value)}
-                containerStyle={loginStyles.dropdownOpened}
-                textStyle={{ color: '#555' }}
-            />
-            <TouchableOpacity
-                style={loginStyles.button}
-                onPress={() => {
-                    console.log(
-                        `name:${name}`,
-                        `phone:${phone}`,
-                        `CPF:${cpf}`,
-                        `email:${email}`,
-                        `curso:${curso}`
-                    )
-                    navigation.navigate('login', {})
-                }}
-            >
-                <Text style={loginStyles.buttonText}>Salvar</Text>
-            </TouchableOpacity>
-        </View >
+        <TouchableWithoutFeedback onPress={() => setOpen(false)}>
+            <View style={container}>
+
+                <TextInput
+                    style={input}
+                    placeholder='Nome'
+                    onChangeText={(text) => setName(text)}
+                />
+                <TextInput
+                    style={input}
+                    placeholder="Telefone"
+                    value={phone}
+                    keyboardType="phone-pad"
+                    onChangeText={(text) => setPhone(text)}
+                    onBlur={handlePhone}
+                    maxLength={11}
+                />
+                <TextInput
+                    style={input}
+                    placeholder="CPF"
+                    value={cpf}
+                    keyboardType="numeric"
+                    onChangeText={(text) => setCPF(text)}
+                    onBlur={handleCPF}
+                    maxLength={11}
+                />
+                <TextInput
+                    style={input}
+                    placeholder='E-mail'
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                    onBlur={handleEmail}
+                />
+                <DropDownPicker
+                    style={dropdown.dropdown}
+                    placeholder={'Curso'}
+                    multiple={false}
+                    items={cursos}
+                    value={curso}
+                    open={open}
+                    setOpen={setOpen}
+                    onOpen={() => setOpen(true)}
+                    setValue={(value) => setCurso(value)}
+                    containerStyle={dropdown.dropdownOpened}
+                    textStyle={{ color: '#555' }}
+                />
+                <TouchableOpacity
+                    style={Button.button}
+                    onPress={() => {
+                        console.log(
+                            `name:${name}`,
+                            `phone:${phone}`,
+                            `CPF:${cpf}`,
+                            `email:${email}`,
+                            `curso:${curso}`
+                        )
+                        navigation.navigate('login', {})
+                    }}
+                >
+                    <Text style={Button.buttonText}>Salvar</Text>
+                </TouchableOpacity>
+            </View >
+        </TouchableWithoutFeedback>
     );
 };
 
