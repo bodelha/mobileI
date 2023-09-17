@@ -86,7 +86,7 @@ const CreateUser = () => {
                 onBlur={handleEmail}
             />
             <DropDownPicker
-                style={loginStyles.input}
+                style={loginStyles.dropdown}
                 placeholder={'Curso'}
                 multiple={false}
                 items={cursos}
@@ -95,6 +95,8 @@ const CreateUser = () => {
                 setOpen={setOpen}
                 onOpen={() => setOpen(true)}
                 setValue={(value)=> setCurso(value)}
+                containerStyle={loginStyles.dropdownOpened}
+                textStyle={{ color: '#555' }}
             />
             <TouchableOpacity
                 style={loginStyles.button}

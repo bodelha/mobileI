@@ -36,6 +36,25 @@ const loginStyles = StyleSheet.create({
       padding: '15%',
       color: 'e89ac7',
       alignItems: 'center'
+    },
+    dropdown: {
+      borderWidth: 1,
+      borderColor: '#ccc',
+      width: '80%',
+      backgroundColor: '#fff',
+      borderRadius: 5,
+      padding: 10,
+      marginVertical: 10,
+      alignSelf: 'center',
+      color: '#555',
+    },
+    dropdownOpened: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+      elevation: 5,
+      zIndex:999
     }
   });
 
