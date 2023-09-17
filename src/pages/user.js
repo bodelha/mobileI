@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Alert} from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import loginStyles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const CreateUser = () => {
     const navigation = useNavigation();
-    const cursos = ['ADS', 'DSM', 'GRH', 'GPI'];
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
     const [cpf, setCPF] = useState('');
-    const [curso, setCurso] = useState('');
     const [email, setEmail] = useState('');
+    const cursos = [
+        {'label':'ADS', 'value':'ADS'},
+        {'label':'DSM', 'value':'DSM'},
+        {'label':'GPI', 'value':'GPI'},
+        {'label':'GRH', 'value':'GRH'},
+    ];
+    const [curso, setCurso] = useState(null);
+    const [open, setOpen] = useState(false);
+
 
     const handlePhone = () => {
         const phoneIsValid = phone.match(/^[0-9]{11}$/);
@@ -76,6 +84,17 @@ const CreateUser = () => {
                 value={email}
                 onChangeText={(text) => setEmail(text)}
                 onBlur={handleEmail}
+            />
+            <DropDownPicker
+                style={loginStyles.input}
+                placeholder={'Curso'}
+                multiple={false}
+                items={cursos}
+                value={curso}
+                open={open}
+                setOpen={setOpen}
+                onOpen={() => setOpen(true)}
+                setValue={(value)=> setCurso(value)}
             />
             <TouchableOpacity
                 style={loginStyles.button}

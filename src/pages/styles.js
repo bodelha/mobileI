@@ -15,6 +15,8 @@ const loginStyles = StyleSheet.create({
       marginVertical: 10,
       width: '80%',
       backgroundColor: '#fff',
+      alignSelf: 'center',
+      color: '#555'
     },
     button: {
       backgroundColor: '#e89ac7',
@@ -34,12 +36,6 @@ const loginStyles = StyleSheet.create({
       padding: '15%',
       color: 'e89ac7',
       alignItems: 'center'
-    },
-    scrollItem:{
-        width: '100%',
-        height: 50,
-        padding: 10,
-        backgroundColor: '#fff',
     }
   });
 
