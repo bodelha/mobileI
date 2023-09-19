@@ -37,7 +37,7 @@ export const List = styled.FlatList`
     margin-top: 20px;
 `;
 
-export const User = styled.View`
+export const Character = styled.View`
     align-items: center;
     margin: 0 20px 30px;
 `;
@@ -56,24 +56,21 @@ export const Name = styled.Text`
     margin-top: 4px;
     text-align: center;
 `;
-
-export const Bio = styled.Text.attrs({
-    numberOfLines: 2,
-})`
-    font-size: 13px;
-    line-height: 18px;
-    color: #999;
-    margin-top: 5px;
+export const Status = styled.Text`
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 4px;
     text-align: center;
 `;
-
 export const ProfileButton = styled(RectButton)`
     margin-top: 10px;
     align-self: stretch;
-    background: #3498db;
+    background: #e89ac7;
     justify-content: center;
     align-items: center;
     height: 36px;
+
 `;
 
 export const ProfileButtonText = styled.Text`

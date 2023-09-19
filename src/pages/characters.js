@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Keyboard, ActivityIndicator} from 'react-native';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../services/api';
 import {
@@ -9,12 +9,12 @@ import {
   Input,
   SubmitButton,
   List,
-  User,
+  Character,
   Avatar,
   Name,
-  Bio,
   ProfileButton,
   ProfileButtonText,
+  Status,
 } from './style';
 
 export default class Main extends Component {
@@ -28,12 +28,12 @@ export default class Main extends Component {
     const characters = await AsyncStorage.getItem('characters');
 
     if (characters) {
-      this.setState({characters: JSON.parse(characters)});
+      this.setState({ characters: JSON.parse(characters) });
     }
   }
 
   async componentDidUpdate(_, prevState) {
-    const {characters} = this.state;
+    const { characters } = this.state;
 
     if (prevState.characters !== characters) {
       await AsyncStorage.setItem('characters', JSON.stringify(characters));
@@ -42,17 +42,34 @@ export default class Main extends Component {
 
   handleAddCharacter = async () => {
     try {
-      const {characters, newCharacter} = this.state;
 
-      this.setState({loading: true});
+      const { characters, newCharacter } = this.state;
 
-      const response = await api.get(`/characters/${newCharacter}`);
+      this.setState({ loading: true });
 
-      console.log(response)
+      const raw_response = await api.get(`api/character/?name=${newCharacter}&count=3`);
+
+      const response = raw_response.data
+
+      const first = response.results[0];
 
       const data = {
+        id: first.id.toString(),
+        name: first.name,
+        image: first.image || 'Unknown',
+        status: first.status || 'Unknown',
+        episode: first.episode[0] || 'Unknown',
+        species: first.species || 'Unknown',
+        type: first.type || 'Unknown',
+        gender: first.gender || 'Unknown',
+        origin: first.origin.name || 'Unknown',
+        location: first.location.name || 'Unknown',
       };
+      console.log(data)
 
+      if (characters.some(character => character.id === data.id)) {
+        throw new Error('Data already exists in characters.');
+      }
       this.setState({
         characters: [...characters, data],
         newCharacter: '',
@@ -61,15 +78,14 @@ export default class Main extends Component {
 
       Keyboard.dismiss();
     } catch (error) {
-      alert('Personagem não encontrado!');
-      this.setState({loading: false});
+      alert('Algo deu errado, verifique o nome do personagem!');
+      this.setState({ loading: false });
     }
 
-    console.log(response.data);
   };
 
   render() {
-    const {characters, newCharacter, loading} = this.state;
+    const { characters, newCharacter, loading } = this.state;
 
     return (
       <Container>
@@ -79,7 +95,7 @@ export default class Main extends Component {
             autoCapitalize="none"
             placeholder="Adicionar personagem"
             value={newCharacter}
-            onChangeText={text => this.setState({newCharacter: text})}
+            onChangeText={text => this.setState({ newCharacter: text })}
             returnKeyType="send"
             onSubmitEditing={this.handleAddCharacter}
           />
@@ -91,37 +107,36 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
-
         <List
           showsVerticalScrollIndicator={false}
           data={characters}
-          keyExtractor={character => character.login}
-          renderItem={({item}) => (
-            <User>
-              <Avatar source={{uri: item.avatar}} />
+          keyExtractor={character => character.id}
+          renderItem={({ item }) => (
+            <Character key={item.id}>
               <Name>{item.name}</Name>
-              <Bio>{item.bio}</Bio>
+              <Avatar source={{ uri: item.image }} />
+              <Status>{item.status}</Status>
 
               <ProfileButton
-                // onPress={() => {
-                //   this.props.navigation.navigate('character', {character: item});
-                // }}
-                >
-                <ProfileButtonText>Ver perfil</ProfileButtonText>
+              // onPress={() => {
+              //   this.props.navigation.navigate('character', {character: item});
+              // }}
+              >
+                <ProfileButtonText>Ver Card</ProfileButtonText>
               </ProfileButton>
 
               <ProfileButton
                 onPress={() => {
                   this.setState({
                     characters: this.state.characters.filter(
-                      character => character.login !== item.login,
+                      character => character.id !== item.id,
                     ),
                   });
                 }}
-                style={{backgroundColor: '#FFC0CB', borderRadius: 10}}>
+                style={{ backgroundColor: '#FFC0CB', borderRadius: 10 }}>
                 <ProfileButtonText>Excluir</ProfileButtonText>
               </ProfileButton>
-            </User>
+            </Character>
           )}
         />
       </Container>
