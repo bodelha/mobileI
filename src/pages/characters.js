@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../services/api';
+import { extractLastPartAfterSlash } from '../services/utils';
 import {
   Container,
   Form,
@@ -58,7 +59,7 @@ export default class Main extends Component {
         name: first.name,
         image: first.image || 'Unknown',
         status: first.status || 'Unknown',
-        episode: first.episode[0] || 'Unknown',
+        episode: extractLastPartAfterSlash(first.episode[0]) || 'Unknown',
         species: first.species || 'Unknown',
         type: first.type || 'Unknown',
         gender: first.gender || 'Unknown',
@@ -118,9 +119,9 @@ export default class Main extends Component {
               <Status>{item.status}</Status>
 
               <ProfileButton
-              // onPress={() => {
-              //   this.props.navigation.navigate('character', {character: item});
-              // }}
+                onPress={() => {
+                  this.props.navigation.navigate('detail', { character: item });
+                }}
               >
                 <ProfileButtonText>Ver Card</ProfileButtonText>
               </ProfileButton>

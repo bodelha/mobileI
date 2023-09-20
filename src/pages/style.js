@@ -91,6 +91,7 @@ export const Avatarperfil = styled.Image`
     height: 100px;
     border-radius: 50px;
     background: #eee;
+    align-self: center;
 `;
 
 export const Nameperfil = styled.Text`
