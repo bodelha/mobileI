@@ -1,4 +1,4 @@
-# Rick and Morty App
+# Rick and Morty Apk
 
 
 This is a React Native project developed in Mobile Devices Programming I, a course in the Cross-Platform Software Development program at Fatec (Faculdade de Tecnologia).
