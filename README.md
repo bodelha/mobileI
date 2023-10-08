@@ -1,6 +1,8 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Rick and Morty App
 
-# Getting Started
+
+This is a React Native project developed in Mobile Devices Programming I, a course in the Cross-Platform Software Development program at Fatec (Faculdade de Tecnologia).
+
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
